@@ -18,7 +18,8 @@ RUN apk add --no-cache \
     iptables \
     jq \
     openssl \
-    wireguard-tools
+    wireguard-tools \
+    nano
 
 ENV LOCAL_NETWORK= \
     KEEPALIVE=0 \
@@ -30,7 +31,11 @@ ENV LOCAL_NETWORK= \
     FIREWALL=1 \
     LOC=ca_ontario \
     USER=p00000000 \
-    PASS=00000 
+    PASS=00000 \
+    PIA_AUTOCONNECT=wireguard \
+    PIA_USER= \
+    PIA_PASS=\
+    PIA_PF=true
 
 #import pia stuff
 RUN mkdir /scripts & \
@@ -51,7 +56,9 @@ COPY ./RegionsListPubKey.pem /RegionsListPubKey.pem
 WORKDIR /scripts
 
 # Copy scripts to containers
-# COPY run pf_success.sh ./extra/pf.sh ./extra/pia-auth.sh ./extra/wg-gen.sh /scripts/
+COPY run pf_success.sh ./extra/pf.sh ./extra/pia-auth.sh ./extra/wg-gen.sh /extra/
+RUN chmod 755 /extra/*
+
 COPY run pf_success.sh /scripts/
 RUN chmod 755 /scripts/*
 
