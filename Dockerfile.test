@@ -34,8 +34,7 @@ ENV LOCAL_NETWORK= \
 
 #import pia stuff
 RUN mkdir /scripts & \
-    cd /scripts & \
-    curl -L https://github.com/pia-foss/manual-connections/archive/master.tar.gz | tar zxvf - -C . --strip-components 1
+    curl -L https://github.com/pia-foss/manual-connections/archive/master.tar.gz | tar zxvf - -C /scripts --strip-components 1
 
 # Modify wg-quick so it doesn't die without --privileged
 # Set net.ipv4.conf.all.src_valid_mark=1 on container creation using --sysctl if required instead
