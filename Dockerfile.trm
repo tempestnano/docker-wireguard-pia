@@ -82,7 +82,6 @@ VOLUME /config /downloads /watch
 WORKDIR /scripts
 
 # Copy scripts to containers
-COPY ./extra/create_conf.sh ./extra/runme.sh ./extra/SetupNS.sh ./extra/port_forwarding.sh /scripts/
 COPY ./root/* /
 RUN chmod 755 /scripts/*
 
