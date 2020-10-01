@@ -81,8 +81,8 @@ VOLUME /config /downloads /watch
 # Add main work dir to PATH
 WORKDIR /scripts
 
-# Copy scripts to containers
-COPY ./root/* /
+# copy local files
+COPY root/ /
 RUN chmod 755 /scripts/*
 
 # Get the PIA CA cert
