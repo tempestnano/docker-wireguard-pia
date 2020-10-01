@@ -1,0 +1,33 @@
+# /etc/conf.d/transmission-daemon
+#
+
+#
+# ----- CONFIGURATION -----
+#
+# For the default location Transmission uses, visit:
+# http://trac.transmissionbt.com/wiki/ConfigFiles
+# For a guide on how set the preferences, visit:
+# http://trac.transmissionbt.com/wiki/EditConfigFiles
+# For the available environement variables, visit:
+# http://trac.transmissionbt.com/wiki/EnvironmentVariables
+#
+# The name of the user that should run Transmission.
+# It's RECOMENDED to run Transmission in it's own user,
+# by default, this is set to 'transmission'.
+# For the sake of security you shouldn't set a password
+# on this user.
+#USERNAME=transmission
+
+
+# ----- *ADVANCED* CONFIGURATION -----
+# Only change these options if you know what you are doing!
+#
+# The folder where Transmission stores the config & web files.
+# ONLY change this you have it at a non-default location!
+TRANSMISSION_HOME="/config"
+TRANSMISSION_WEB_HOME="/combustion-release"
+#
+# The arguments passed on to transmission-daemon.
+# ONLY change this you need to, otherwise use the
+# settings file as per above.
+#TRANSMISSION_ARGS=""

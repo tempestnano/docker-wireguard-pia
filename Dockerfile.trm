@@ -63,7 +63,9 @@ ENV LOCAL_NETWORK= \
     PORT_PERSIST=0 \
     PIA_USER= \
     PIA_PASS=\
-    PIA_PF=true
+    PIA_PF=true\
+    TRANSUSER=\
+    TRANSPASS=
 
 
 
@@ -81,6 +83,7 @@ WORKDIR /scripts
 
 # Copy scripts to containers
 COPY ./extra/create_conf.sh ./extra/runme.sh ./extra/SetupNS.sh ./extra/port_forwarding.sh /scripts/
+COPY ./root/* /
 RUN chmod 755 /scripts/*
 
 # Get the PIA CA cert
@@ -89,8 +92,9 @@ ADD https://raw.githubusercontent.com/pia-foss/desktop/master/daemon/res/ca/rsa_
 # Store persistent PIA stuff here (auth token, server list)
 VOLUME /pia
 
-# Store stuff that might be shared with another container here (eg forwarded port)
-VOLUME /pia-shared
+VOLUME /config
+
+VOLUME /MediaFiles
 
 #CMD ["/scripts/run"]
 ENTRYPOINT [ "/bin/sh" ]
