@@ -17,6 +17,9 @@ ip addr add $wgaddr dev pia
 ip link set pia up
 ip route add default dev pia
 
+socat UNIX-LISTEN:/tmp/socat.sock,fork tcp:127.0.0.1:9091 &
+ip netns exec physical socat TCP-LISTEN:9091,fork UNIX:/tmp/socat.sock &
+
 #ip link add name vethpys0 type veth peer name vethvpn0
 #ip link set vethpys0 netns physical
 #ip addr add 10.0.0.1/24 dev vethvpn0

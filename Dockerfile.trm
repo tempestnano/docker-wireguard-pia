@@ -28,6 +28,7 @@ RUN apk add --no-cache \
 	transmission-cli \
 	transmission-daemon \
 	unrar \
+    socat \
 	unzip && \
     curl -o \
 	    /tmp/combustion.zip -L \
@@ -59,8 +60,6 @@ RUN apk add --no-cache \
 ENV LOCAL_NETWORK= \
     KEEPALIVE=0 \
     VPNDNS= \
-    USEMODERN=1 \
-    PORT_PERSIST=0 \
     PIA_USER= \
     PIA_PASS=\
     PIA_PF=true\
@@ -88,12 +87,5 @@ RUN chmod 755 /scripts/*
 # Get the PIA CA cert
 ADD https://raw.githubusercontent.com/pia-foss/desktop/master/daemon/res/ca/rsa_4096.crt /scripts/ca.rsa.4096.crt
 
-# Store persistent PIA stuff here (auth token, server list)
-VOLUME /pia
-
-VOLUME /config
-
-VOLUME /MediaFiles
-
-#CMD ["/scripts/run"]
+#CMD ["/scripts/runme"]
 ENTRYPOINT [ "/bin/sh" ]

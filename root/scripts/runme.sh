@@ -9,6 +9,27 @@ wait_file() {
   ((++wait_seconds))
 }
 
+trap finish SIGTERM SIGINT SIGQUIT
+
+# All done. Sleep and wait for termination.
+now_sleep () {
+  sleep infinity &
+  wait $!
+}
+
+# An error with no recovery logic occured. Either go to sleep or exit.
+fatal_error () {
+  echo "$(date): Fatal error"
+  [ $EXIT_ON_FATAL -eq 1 ] && exit 1
+  sleep infinity &
+  wait $!
+}
+
+FILE=/config/settings.json
+if [ ! -f "$FILE" ]; then
+    cp /etc/defaults/settings.json /config/
+fi
+
 #TransmissionPort=51413
 . /scripts/create_conf.sh
 . /scripts/SetupNS.sh
@@ -26,5 +47,8 @@ wait_file "$portfile" 30 || {
   exit 1
 }
 
-piaport=$(cat "$portfile")
 
+
+piaport=$(cat "$portfile") ./transmission-start.sh
+
+now_sleep
