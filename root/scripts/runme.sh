@@ -48,7 +48,13 @@ wait_file "$portfile" 30 || {
 }
 
 
+if [ -z "$(ifconfig | grep eth)" ]
+then
+  ./transmission-start.sh
+else
+  echo "Something is amiss with the network"
+  exit 1
+fi     # $String is null.
 
-piaport=$(cat "$portfile") ./transmission-start.sh
 
 now_sleep
