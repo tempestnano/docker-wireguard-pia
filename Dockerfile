@@ -81,5 +81,5 @@ HEALTHCHECK --interval=5m CMD /etc/scripts/healthcheck.sh
 
 EXPOSE 9091
 
-CMD ["/scripts/runme"]
+CMD ["/scripts/runme.sh"]
 #ENTRYPOINT [ "/bin/sh" ]
