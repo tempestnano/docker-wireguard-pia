@@ -13,7 +13,7 @@ echo "$( jq --arg keyName bind-address-ipv4 '.[$keyName]'=\"$ippia\" $transmissi
 echo "$( jq --arg keyName rpc-whitelist '.[$keyName]'=\"127.0.0.1\" $transmission_settings_file )" > $transmission_settings_file
 echo "$( jq --arg keyName rpc-whitelist-enabled '.[$keyName]'=\"true\" $transmission_settings_file )" > $transmission_settings_file
 
-echo "$( jq --arg keyName peer-port '.[$keyName]'=\" \" $transmission_settings_file )" > $transmission_settings_file
+#echo "$( jq --arg keyName peer-port '.[$keyName]'=\"$(cat /tmp/piaport)\" $transmission_settings_file )" > $transmission_settings_file
 
 
 
