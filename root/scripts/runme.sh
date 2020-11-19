@@ -26,8 +26,9 @@ fatal_error () {
 }
 
 FILE=/config/settings.json
-if [ ! -f "$FILE" ]; then
-    cp /etc/defaults/settings.json /config/
+
+if [ -z "$(cat $FILE | grep watch)" ]; then
+    cp /etc/defaults/settings.json /config/settings.json
 fi
 
 #TransmissionPort=51413

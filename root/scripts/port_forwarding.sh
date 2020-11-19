@@ -97,7 +97,7 @@ echo "The signature is OK.
 
 Trying to bind the port..."
 destdir=/tmp/piaport
-echo "$port" >> "$destdir"
+echo "$port" > "$destdir"
 
 #iptables-save | grep -v "transmission" | iptables-restore
 #iptables -t nat -A PREROUTING -i eth0 -p tcp --dport $port -j REDIRECT --to-port $TransmissionPort --comment "transmission"

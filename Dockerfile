@@ -54,7 +54,9 @@ ENV LOCAL_NETWORK= \
     PIA_PASS=\
     PIA_PF=true\
     TRANSUSER=\
-    TRANSPASS=
+    TRANSPASS=\
+    TRANSMISSION_WEB_HOME="/combustion-release"\
+    FORWARD_PORTS="9091,8888"
 
 
 
@@ -77,7 +79,7 @@ RUN chmod 755 /scripts/*
 # Get the PIA CA cert
 ADD https://raw.githubusercontent.com/pia-foss/desktop/master/daemon/res/ca/rsa_4096.crt /scripts/ca.rsa.4096.crt
 
-HEALTHCHECK --interval=5m CMD /etc/scripts/healthcheck.sh
+HEALTHCHECK --interval=5m CMD /scripts/healthcheck.sh
 
 EXPOSE 9091
 
