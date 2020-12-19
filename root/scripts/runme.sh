@@ -9,13 +9,19 @@ wait_file() {
   ((++wait_seconds))
 }
 
-trap finish SIGTERM SIGINT SIGQUIT
+# SIGTERM-handler this funciton will be executed when the container receives the SIGTERM signal (when stopping)
+term_handler(){
+   echo "***Stopping"
+   pkill -TERM "transmission-daemon"
+   pkill -TERM "socat"
 
-# All done. Sleep and wait for termination.
-now_sleep () {
-  sleep infinity &
-  wait $!
+   . /scripts/RemoveNS.sh
+   exit 0
 }
+
+# Setup signal handlers
+trap 'term_handler' SIGTERM
+
 
 # An error with no recovery logic occured. Either go to sleep or exit.
 fatal_error () {
@@ -23,6 +29,24 @@ fatal_error () {
   [ $EXIT_ON_FATAL -eq 1 ] && exit 1
   sleep infinity &
   wait $!
+}
+
+#Monitor the process and exit gracefully if needed.
+health_check () {
+  fails=0
+  while true; do
+    if ! (/scripts/healthcheck.sh); then
+       (( fails += 1 ))  
+       echo "Healthcheck failed"
+    else
+      fails=0
+    fi
+    if ((fails>1)); then
+      . /scripts/RemoveNS.sh
+      exit 1
+    fi
+    sleep 300
+  done
 }
 
 FILE=/config/settings.json
@@ -49,6 +73,7 @@ wait_file "$portfile" 30 || {
 }
 
 
+
 if [ -z "$(ifconfig | grep eth)" ]
 then
   ./transmission-start.sh
@@ -56,6 +81,4 @@ else
   echo "Something is amiss with the network"
   exit 1
 fi     # $String is null.
-
-
-now_sleep
+health_check

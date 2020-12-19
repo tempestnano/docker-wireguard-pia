@@ -29,7 +29,7 @@ else
 fi
 
 echo "STARTING TRANSMISSION"
-/usr/bin/transmission-daemon -g ${TRANSMISSION_HOME} --logfile $LOGFILE &
+nice -n19 /usr/bin/transmission-daemon -g ${TRANSMISSION_HOME} --logfile $LOGFILE &
 
 sleep 3
 

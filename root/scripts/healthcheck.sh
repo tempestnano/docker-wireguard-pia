@@ -3,7 +3,6 @@
 if [ -n "$(ifconfig | grep eth)" ]
 then
   echo "Something is amiss with the network"
-  kill 1
   exit 1
 fi
 
@@ -17,7 +16,6 @@ then
     if [[ "$output" != "Port is open: Yes" ]]
     then
         echo "Port Forwarding Failed"
-        kill 1
         exit 1
     fi
 fi
@@ -33,7 +31,6 @@ STATUS=$?
 if [[ ${STATUS} -ne 0 ]]
 then
     echo "Network is down"
-    kill 1
     exit 1
 fi
 
