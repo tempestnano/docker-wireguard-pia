@@ -83,6 +83,6 @@ ADD https://raw.githubusercontent.com/pia-foss/desktop/master/daemon/res/ca/rsa_
 
 EXPOSE 9091
 
-HEALTHCHECK --interval=5m CMD /scripts/healthcheck.sh
+# HEALTHCHECK --interval=5m CMD /scripts/healthcheck.sh
 CMD ["/scripts/runme.sh"]
 #ENTRYPOINT [ "/bin/sh" ]
